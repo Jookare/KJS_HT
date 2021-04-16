@@ -1,0 +1,8 @@
+this line has foo in it
+so does this foolish line; do you see where?
+even this line, which has barfood in it, will be printed.
+But not this Fool!
+Lets not forget our friend lorem ipsum so here we go:
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+Praesent pulvinar, enim sit amet vulputate tincidunt, erat odio viverra dui, in ornare sapien nisl vitae dolor. Praesent at lorem in est tincidunt vestibulum non nec mi. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Ut a finibus tortor, quis aliquam augue. 
+Duis dolor turpis, posuere vel sem ac, rhoncus posuere risus. Aliquam tempor libero at eros posuere, placerat finibus turpis sagittis. Praesent faucibus semper consectetur. Etiam vitae lacus venenatis magna dignissim tristique. Nunc rutrum dictum risus non dapibus. Cras fermentum urna vitae purus elementum, ac faucibus ex finibus. Aliquam in velit et tellus tempus porta. Nullam eget diam sodales, condimentum lacus non, eleifend tellus. Nam rhoncus id mi sit amet commodo. Nullam a malesuada nulla. Etiam eu quam mauris. Suspendisse ut neque vestibulum, placerat augue sit amet, porta quam.
