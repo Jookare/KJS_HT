@@ -46,7 +46,11 @@ void searchFromStdin(char *term){
 		if(strstr(read, term)){
 
 			// Mallocin memory for text string so we can concatenate all acceptable rows to it.
-			text = realloc(text, (read_len + text_len));
+			
+			if((text = realloc(text, (read_len + text_len))) == NULL) {
+				printf("malloc failed\n");
+				exit(1);
+		  	}
 			strcat(text, read);
 			text_len = strlen(text);
 		}

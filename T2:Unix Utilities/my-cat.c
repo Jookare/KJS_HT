@@ -15,7 +15,7 @@ void readGivenFile(char *fName){
 
 	// Reading lines from file and printing them out
 	while (fgets(buffer, SIZE, file) != NULL){
-		printf("%s", buffer);		
+		printf("%s", buffer);
 	}
 	fclose(file);
 }
