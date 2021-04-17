@@ -9,7 +9,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define SIZE 100
+#define SIZE 10
 
 void searchFromFile(char *term,char *fName){
 	FILE *file;
@@ -42,27 +42,52 @@ void searchFromFile(char *term,char *fName){
 // You can input EOF with ctrl + D
 void searchFromStdin(char *term){
 	char read[SIZE]; 
-	char *text = malloc(1);
-	size_t read_len, text_len = 1;
+   char *temp = NULL, *str = NULL, *text = NULL;	
+	size_t str_len = 0, text_len = 0;
 
 	// With stdin we can use fgets
 	while (fgets(read, SIZE, stdin) != NULL){
-		read_len = strlen(read);
-
-		// Checking if read string contains searched 'string'
-		if(strstr(read, term)){
-
-			// Mallocin memory for text string so we can concatenate all acceptable rows to it.
-			
-			if((text = realloc(text, (read_len + text_len))) == NULL) {
-				printf("malloc failed\n");
+				
+		// saving read input to temp
+		if((temp = malloc(strlen(read) + 1)) == NULL) {
+	      fprintf(stderr, "malloc failed\n");
+	      exit(1);
+	  	}
+		strcat(temp, read);
+		// temp doesn't end with newline so we copy/concatenate temp to str
+		if(temp[strlen(temp) - 1] != '\n'){
+			str_len = str_len + strlen(temp);
+			if((str = realloc(str, str_len + 1)) == NULL) {
+				fprintf(stderr, "malloc failed\n");
 				exit(1);
 		  	}
-			strcat(text, read);
-			text_len = strlen(text);
+			strcat(str, temp);
+		// line read so we add temp one last time
+		}else{
+			str_len = str_len + strlen(temp);
+			if((str = realloc(str, str_len + 1)) == NULL) {
+				fprintf(stderr, "malloc failed\n");
+				exit(1);
+		  	}
+			strcat(str, temp);
+			// Checking if read string contains searched 'string'
+			if(strstr(str, term)){
+
+				// Mallocin memory for text string so we can concatenate all acceptable rows to it.
+				
+				if((text = realloc(text, (text_len + strlen(str) + 1))) == NULL) {
+					printf("malloc failed\n");
+					exit(1);
+			  	}
+				strcat(text, str);
+				text_len = strlen(text);
+			}
+			str_len = 0;
+			str = NULL;
 		}
 	}
 	printf("%s", text);
+	free(temp); free(text); free(str);
 }		
 
 

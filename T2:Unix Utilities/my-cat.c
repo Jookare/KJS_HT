@@ -16,7 +16,7 @@ void readGivenFile(char *fName){
 
 	// Opening file
 	if((file = fopen(fName, "r")) == NULL){
-		printf("Can't open file\n");
+		printf("my-cat: cannot open file\n");
 		exit(1);
 	}
 
@@ -34,8 +34,6 @@ int main( int argc, char *argv[] ){
 		for (int i = 1; i < argc; i++){
 			readGivenFile(argv[i]);
 		}
-	}else{
-		printf("Usage: my-cat: file [files]\n");
 	}
 	return (0);	
 }

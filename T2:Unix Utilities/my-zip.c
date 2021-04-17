@@ -9,7 +9,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#define SIZE 512
+#define SIZE 10
 
 void zipFile(int argc, char* argv[]){
 	FILE* file;
@@ -20,7 +20,7 @@ void zipFile(int argc, char* argv[]){
 	// Going through all the input files
 	for (int i = 1; i < argc; i++){
 		if((file = fopen(argv[i], "r")) == NULL){
-			printf("wzip: cannot open file\n");
+			printf("my-zip: cannot open file\n");
 			exit(1);
 		}
 		// Reading lines from file
@@ -56,7 +56,7 @@ int main( int argc, char *argv[] ){
 	switch(argc){
 		// No file given so error message is printed
 		case 1:
-			printf("wzip: file1 [file2 ...]\n");
+			printf("my-zip: file1 [file2 ...]\n");
 			exit(1);
 		default:
 			zipFile(argc, argv);
