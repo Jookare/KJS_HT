@@ -1,8 +1,8 @@
 // Kurssi: Käyttöjärjestelmät ja systeemiohjelmointi
 // Tekijä: Joona Kareinen
 // Päivämäärä: (Aloitus) 	26.1.2021 
-// (Lopetus) 					26.1.2021 
 // (Muokattu/Kommentoitu) 	16.4.2021
+// (Lopetus) 					27.4.2021 
 //
 #include <stdio.h>
 #include <string.h>

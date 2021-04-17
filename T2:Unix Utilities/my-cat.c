@@ -1,3 +1,10 @@
+// Kurssi: Käyttöjärjestelmät ja systeemiohjelmointi
+// Tekijä: Joona Kareinen
+// Päivämäärä: (Aloitus) 	9.4.2021
+// (Muokattu/Kommentoitu) 	16.4.2021
+// (Lopetus) 					17.4.2021 
+//
+
 #include <stdio.h>
 #include <stdlib.h>
 
