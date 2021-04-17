@@ -44,15 +44,15 @@ void zipFile(int argc, char* argv[]){
 
 	// We count number of characters in a row and then fwrite/print output
 	}else{
-		for (i = 1; i<strlen(str); i++){
+		for (i = 0; i<strlen(str); i++){
 			k = 1;
-			while(i < strlen(str) && str[i] == str[i-1]){
+			while(i < strlen(str) - 1 && str[i] == str[i+1]){
 				i++;
 				k++;
 			}
 			fwrite((const void*) & k, sizeof(int), 1, stdout);
 			//printf("%d", k);
-			printf("%c", str[i-1]);
+			printf("%c", str[i]);
 		}
 	}
 
