@@ -9,7 +9,7 @@
 #include <stdlib.h>
 #include <sys/stat.h>
 
-#define SIZE 100
+#define SIZE 10
 
 // Luodaan struct linkitettyä listaa varten
 struct Node{
@@ -24,73 +24,127 @@ Node *readFile(Node *pStart, char *fName) {
     Node *pEnd = NULL, *ptrNew;
     FILE *file;
     char read[SIZE];
+	 char *temp = NULL, *str = NULL;	
+	 size_t str_len = 0;
 
 	// Opening file
 	if ((file = fopen(fName, "r")) == NULL) {
 			fprintf(stderr, "reverse: cannot open file '%s'\n", fName);
 			exit(1);
 		}
-
-   size_t length = strlen(read);
 	while (fgets(read, SIZE, file) != NULL) {
-		// saving read string length
-     	length = strlen(read);
-		// Changing newline to 'null character'
-     	if (read[length - 1] == '\n'){
-      	read[--length] = '\0';
-		}
-		// allocating memory
-     	if((ptrNew=(Node*)malloc(sizeof(Node))) == NULL) {
-         fprintf(stderr, "malloc failed\n");
-         exit(1);
-     	}
-		// allocating memory for our string 
-  		ptrNew->text = malloc(length+1);
 
-		// Copying read string to node text
-  		strcpy(ptrNew->text ,read);
-		ptrNew->pNext = NULL;
+		// saving read input to temp
+		if((temp = malloc(strlen(read) + 1)) == NULL) {
+	      fprintf(stderr, "malloc failed\n");
+	      exit(1);
+	  	}
+		strcat(temp, read);
 
-		// first node in making
-   	if (pStart == NULL) {
-       	pStart = ptrNew;
-       	pEnd = ptrNew;
-		// other nodes
-   	} else {
-       	pEnd->pNext = ptrNew;
-       	pEnd = ptrNew;
+		// temp doesn't end with newline so we copy/concatenate temp to str
+		if(temp[strlen(temp) - 1] != '\n'){
+			str_len = str_len + strlen(temp);
+			if((str = realloc(str, str_len + 1)) == NULL) {
+				fprintf(stderr, "malloc failed\n");
+				exit(1);
+		  	}
+			strcat(str, temp);
+		// line read so we add temp one last time and create new node
+		}else{
+			// Changing newline to 'null character'
+			temp[strlen(temp) - 1] = '\0';
+			str_len = str_len + strlen(temp);
+			if((str = realloc(str, str_len + 1)) == NULL) {
+				fprintf(stderr, "malloc failed\n");
+				exit(1);
+			}
+			strcat(str, temp);
+			// allocating memory
+		  	if((ptrNew=(Node*)malloc(sizeof(Node))) == NULL) {
+		      fprintf(stderr, "malloc failed\n");
+		      exit(1);
+		  	}
+			// allocating memory for our string 
+			if((ptrNew->text = malloc(str_len+1)) == NULL) {
+		      fprintf(stderr, "malloc failed\n");
+		      exit(1);
+		  	}
+			// Copying read string to node text
+	  		strcpy(ptrNew->text ,str);
+			ptrNew->pNext = NULL;
+
+			// first node in making
+			if (pStart == NULL) {
+		    	pStart = ptrNew;
+		    	pEnd = ptrNew;
+			// other nodes
+			} else {
+		    	pEnd->pNext = ptrNew;
+		    	pEnd = ptrNew;
+			}
+			str = NULL;
+			str_len = 0;
 		}
 	}
 	fclose(file);
 	return pStart;
 }
 
-//https://stackoverflow.com/questions/56606496/how-to-add-a-string-to-linked-list-in-c
-// This takes care of the case where no input file is given so we read stdin
 Node *listMaker(Node *pStart){
 	Node *pEnd = NULL, *ptrNew;
 	char read[SIZE];
-	
+	char *temp = NULL, *str = NULL;	
+	size_t str_len = 0;
 	// Reading stdin until ctrl + d is called.
 	while(fgets(read, SIZE, stdin) != NULL){
-		// Allocating memory
-   	if((ptrNew = (Node*)malloc(sizeof(Node))) == NULL) {
-			fprintf(stderr, "malloc failed\n");
-	 		exit(1);
-	   }
-		ptrNew->text = malloc(strlen(read)+1);
-		strcpy(ptrNew->text ,read);
+		
+		// saving read input to temp
+		if((temp = malloc(strlen(read) + 1)) == NULL) {
+	      fprintf(stderr, "malloc failed\n");
+	      exit(1);
+	  	}
+		strcat(temp, read);
 
-	   ptrNew->pNext = NULL;
-		// first node
-	   if (pStart == NULL) {
-	       pStart = ptrNew;
-	       pEnd = ptrNew;
-		// other nodes
-	   } else {
-	       pEnd->pNext = ptrNew;
-	       pEnd = ptrNew;
-	   }
+		// temp doesn't end with newline so we copy/concatenate temp to str
+		if(temp[strlen(temp) - 1] != '\n'){
+			str_len = str_len + strlen(temp);
+			if((str = realloc(str, str_len + 1)) == NULL) {
+				fprintf(stderr, "malloc failed\n");
+				exit(1);
+		  	}
+			strcat(str, temp);
+		// line read so we add temp one last time and create new node
+		}else{
+			temp[strlen(temp)-1] = '\0';
+			str_len = str_len + strlen(temp);
+			if((str = realloc(str, str_len + 1)) == NULL) {
+				fprintf(stderr, "malloc failed\n");
+				exit(1);
+		  	}
+			strcat(str, temp);
+			if((ptrNew = (Node*)malloc(sizeof(Node))) == NULL) {
+				fprintf(stderr, "malloc failed\n");
+		 		exit(1);
+			}
+			if((ptrNew->text = malloc(str_len+1)) == NULL) {
+			   fprintf(stderr, "malloc failed\n");
+			   exit(1);
+		  	}
+			strcpy(ptrNew->text ,str);
+
+			ptrNew->pNext = NULL;
+			// first node
+			if (pStart == NULL) {
+			    pStart = ptrNew;
+			    pEnd = ptrNew;
+			// other nodes
+			} else {
+			    pEnd->pNext = ptrNew;
+			    pEnd = ptrNew;
+			}
+			str = NULL;
+			str_len = 0;
+		}
 	}
  	return pStart;
 }
