@@ -225,10 +225,10 @@ int checkFiles(char* file1, char* file2){
 
 void freeMemory(Node *pStart)  {
 	Node *ptr;
-    	while (pStart != NULL){
+	while (pStart != NULL){
 		ptr = pStart;
 		pStart = pStart->pNext;
-	    	free(ptr);
+		free(ptr);
 	}
 }
 
@@ -236,31 +236,34 @@ int main( int argc, char *argv[] ){
 	Node *pStart = NULL;
 	switch(argc){
 		case 1:
-         pStart = listMaker(pStart);
+		  	 pStart = listMaker(pStart);
          pStart = Reverse(pStart);
          Print(pStart);
+				 freeMemory(pStart);
          break;
      	case 2:
-		   pStart = readFile(pStart, argv[1]);
-		   pStart = Reverse(pStart);
-		   Print(pStart);
+				pStart = readFile(pStart, argv[1]);
+				pStart = Reverse(pStart);
+				Print(pStart);
+				freeMemory(pStart);
 		   break;
 
       case 3:
 			// Checking if files have same name
 			if (strcmp(argv[1], argv[2]) == 0){
 				fprintf(stderr, "reverse: input and output file must differ\n");
-	         exit(1);
+				exit(1);
 			// Checking if given filenames point to same file
 			}else if(checkFiles(argv[1], argv[2])){
-	          fprintf(stderr, "reverse: input and output file must differ\n");
-	          exit(1);
+				fprintf(stderr, "reverse: input and output file must differ\n");
+				exit(1);
 			// running program with input and output file
-      	}else{
-	          pStart = readFile(pStart, argv[1]);
-	          pStart = Reverse(pStart);
-	          writeFile(pStart, argv[2]);
-				 break;
+			}else{
+				pStart = readFile(pStart, argv[1]);
+				pStart = Reverse(pStart);
+				writeFile(pStart, argv[2]);
+				freeMemory(pStart);
+		  break;
       	}
 		// printing error message since 3 files given
   		default:
