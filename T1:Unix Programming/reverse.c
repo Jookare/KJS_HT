@@ -223,6 +223,15 @@ int checkFiles(char* file1, char* file2){
 	return (stat1.st_dev == stat2.st_dev && stat1.st_ino == stat2.st_ino);
 }
 
+void freeMemory(Node *pStart)  {
+	Node *ptr;
+    	while (pStart != NULL){
+		ptr = pStart;
+		pStart = pStart->pNext;
+	    	free(ptr);
+	}
+}
+
 int main( int argc, char *argv[] ){
 	Node *pStart = NULL;
 	switch(argc){
