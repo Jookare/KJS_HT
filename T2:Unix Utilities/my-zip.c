@@ -16,7 +16,6 @@ void zipFile(int argc, char* argv[]){
 	char read[SIZE];
 	char *str = NULL;
 	size_t str_len = 0;
-	
 	// Going through all the input files
 	for (int i = 1; i < argc; i++){
 		if((file = fopen(argv[i], "r")) == NULL){

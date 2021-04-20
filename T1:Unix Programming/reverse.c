@@ -49,6 +49,7 @@ Node *readFile(Node *pStart, char *fName) {
 				exit(1);
 		  	}
 			strcat(str, temp);
+			free(temp);
 		// line read so we add temp one last time and create new node
 		}else{
 			// Changing newline to 'null character'
@@ -59,6 +60,7 @@ Node *readFile(Node *pStart, char *fName) {
 				exit(1);
 			}
 			strcat(str, temp);
+			free(temp);
 			// allocating memory
 		  	if((ptrNew=(Node*)malloc(sizeof(Node))) == NULL) {
 		      fprintf(stderr, "malloc failed\n");
@@ -82,6 +84,7 @@ Node *readFile(Node *pStart, char *fName) {
 		    	pEnd->pNext = ptrNew;
 		    	pEnd = ptrNew;
 			}
+			free(str);
 			str = NULL;
 			str_len = 0;
 		}
@@ -104,7 +107,6 @@ Node *listMaker(Node *pStart){
 	      exit(1);
 	  	}
 		strcat(temp, read);
-
 		// temp doesn't end with newline so we copy/concatenate temp to str
 		if(temp[strlen(temp) - 1] != '\n'){
 			str_len = str_len + strlen(temp);
@@ -113,6 +115,7 @@ Node *listMaker(Node *pStart){
 				exit(1);
 		  	}
 			strcat(str, temp);
+			free(temp);
 		// line read so we add temp one last time and create new node
 		}else{
 			temp[strlen(temp)-1] = '\0';
@@ -122,6 +125,7 @@ Node *listMaker(Node *pStart){
 				exit(1);
 		  	}
 			strcat(str, temp);
+			free(temp);
 			if((ptrNew = (Node*)malloc(sizeof(Node))) == NULL) {
 				fprintf(stderr, "malloc failed\n");
 		 		exit(1);
@@ -142,6 +146,7 @@ Node *listMaker(Node *pStart){
 			    pEnd->pNext = ptrNew;
 			    pEnd = ptrNew;
 			}
+			free(str);
 			str = NULL;
 			str_len = 0;
 		}
@@ -228,6 +233,7 @@ void freeMemory(Node *pStart)  {
 	while (pStart != NULL){
 		ptr = pStart;
 		pStart = pStart->pNext;
+		free(ptr->text);
 		free(ptr);
 	}
 }
@@ -236,16 +242,16 @@ int main( int argc, char *argv[] ){
 	Node *pStart = NULL;
 	switch(argc){
 		case 1:
-		  	 pStart = listMaker(pStart);
+		  	pStart = listMaker(pStart);
          pStart = Reverse(pStart);
          Print(pStart);
-				 freeMemory(pStart);
+			freeMemory(pStart);
          break;
      	case 2:
-				pStart = readFile(pStart, argv[1]);
-				pStart = Reverse(pStart);
-				Print(pStart);
-				freeMemory(pStart);
+			pStart = readFile(pStart, argv[1]);
+			pStart = Reverse(pStart);
+			Print(pStart);
+			freeMemory(pStart);
 		   break;
 
       case 3:
@@ -263,12 +269,12 @@ int main( int argc, char *argv[] ){
 				pStart = Reverse(pStart);
 				writeFile(pStart, argv[2]);
 				freeMemory(pStart);
-		  break;
+		  		break;
       	}
 		// printing error message since 3 files given
   		default:
-         	fprintf(stderr, "usage: reverse <input> <output>\n");
-         	exit(1);
+      	fprintf(stderr, "usage: reverse <input> <output>\n");
+      	exit(1);
 	}
 	return 0;
 }
