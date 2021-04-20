@@ -62,6 +62,7 @@ void searchFromStdin(char *term){
 				exit(1);
 		  	}
 			strcat(str, temp);
+			free(temp);
 		// line read so we add temp one last time
 		}else{
 			str_len = str_len + strlen(temp);
@@ -70,6 +71,7 @@ void searchFromStdin(char *term){
 				exit(1);
 		  	}
 			strcat(str, temp);
+			free(temp);
 			// Checking if read string contains searched 'string'
 			if(strstr(str, term)){
 
@@ -82,12 +84,13 @@ void searchFromStdin(char *term){
 				strcat(text, str);
 				text_len = strlen(text);
 			}
+			free(str);
 			str_len = 0;
 			str = NULL;
 		}
 	}
 	printf("%s", text);
-	free(temp); free(text); free(str);
+	free(text);
 }		
 
 
