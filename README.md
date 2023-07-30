@@ -1,4 +1,4 @@
-# Operating Systems and Systems Programming - Project work
+# Operating Systems and Systems Programming
 
 This repository contains the project work files from the course 'Operating Systems and Systems Programming'. 
 The course is based on the popular [ostep-projects](https://github.com/remzi-arpacidusseau/ostep-projects) repository.
